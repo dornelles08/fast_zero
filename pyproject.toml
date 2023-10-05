@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "fast-zero"
+version = "0.1.0"
+description = ""
+authors = ["Felipe Dornelles <lipe.dornelles@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 79
+exclude = ['venv', '.venv', 'migrations']
+
+[tool.isort]
+profile = "black"
+line_length = 79
+extend_skip = ['migrations']
+
+[tool.pytest.ini_options]
+pythonpath = "."
+
+[tool.blue]
+extend-exclude = '(migrations/)'
+
+[tool.taskipy.tasks]
+lint = 'ruff . && blue --check . --diff'
+format = 'blue .  && isort .'
+run = 'uvicorn fast_zero.app:app --reload'
+test = 'pytest -s -x --cov=fast_zero -vv'
+pre_test = 'task format'
+post_test = 'coverage html'

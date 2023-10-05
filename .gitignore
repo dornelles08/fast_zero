@@ -1,0 +1,9 @@
+database.db
+venv
+.env
+.pytest_cache
+.ruff_cache
+__pycache__
+.coverage
+htmlcov
+migrations
