@@ -70,11 +70,11 @@ def test_update_user(client, user, token):
     assert response.json() == {
         'username': 'bob',
         'email': 'bob@example.com',
-        'id': 1,
+        'id': user.id,
     }
 
 
-def test_update_user_unauthorized(client, token):
+def test_update_user_wrong_user(client, token):
     response = client.put(
         '/users/2',
         headers={'Authorization': f'Bearer {token}'},
@@ -99,7 +99,7 @@ def test_delete_user(client, user, token):
     assert response.json() == {'detail': 'User deleted'}
 
 
-def test_delete_user_unauthorized(client, token):
+def test_delete_user_wrong_user(client, token):
     response = client.delete(
         '/users/2',
         headers={'Authorization': f'Bearer {token}'},
